@@ -1,0 +1,101 @@
+Project brief
+This project focuses on evolving a Wi-Fi monitoring system into an intelligent rogue access point detection engine capable of identifying Evil Twin attacks even when only a single network instance is visible. The system must move beyond simple duplication checks and incorporate historical fingerprinting, behavioral analysis, and trust validation mechanisms.
+
+Phase upgrade prompt: Advanced Detection Logic with Network Fingerprinting and Trust Validation
+
+Objective
+Upgrade the existing monitoring and rule-based detection system to support advanced detection strategies that can identify rogue or impersonated networks even in the absence of visible duplicates. The system must build and maintain historical fingerprints of networks and compare real-time observations against these profiles to determine trustworthiness.
+
+Scope of work
+You are required to extend your existing system by introducing persistent network identity tracking, fingerprint modeling, anomaly comparison logic, and an enhanced scoring mechanism. The system should evolve from reactive detection to context-aware verification.
+
+System upgrade requirements
+
+Persistent network identity tracking
+The system must maintain a persistent record of previously observed networks. Each network should be identified primarily by SSID but must also track all associated BSSIDs over time.
+
+For each SSID, maintain a list of known BSSIDs and mark which ones are considered trusted based on repeated consistent observations.
+
+The system must be capable of recognizing when a known SSID is being broadcast by a previously unseen BSSID.
+
+Network fingerprint model
+Design and implement a fingerprint structure for each known network. The fingerprint must represent stable and semi-stable characteristics derived from historical observations.
+
+Each fingerprint should include typical BSSID or set of known BSSIDs, usual signal strength range expressed as a min and max boundary, commonly observed channel or frequency, expected security type, average stability metrics such as how often it appears and how long it remains active.
+
+The fingerprint must be updated incrementally as new observations are made, allowing the system to refine its understanding of each network over time.
+
+Real-time fingerprint comparison
+For every scan cycle, the system must compare current observations against stored fingerprints.
+
+If a network with a known SSID is detected, the system must evaluate how closely it matches the expected fingerprint.
+
+The comparison must include checking whether the BSSID is known or unknown, whether the signal strength falls within the expected range, whether the channel matches historical patterns, and whether the security type is consistent.
+
+Any deviation must be quantified and passed to the scoring system.
+
+Anomaly detection logic
+
+BSSID mismatch detection
+If a known SSID appears with a BSSID that has not been previously observed or trusted, this must be flagged as a high-impact anomaly.
+
+Signal anomaly detection
+If the current signal strength deviates significantly from the historical range for that network, this must be flagged. Both unusually strong and unusually weak signals should be considered.
+
+Channel inconsistency detection
+If the network appears on a channel or frequency not typically associated with its historical behavior, this must be marked as suspicious.
+
+Security mismatch detection
+If the security type differs from the expected fingerprint, this must be treated as a critical anomaly.
+
+Temporal anomaly detection
+If a known network disappears and is immediately replaced by another instance with the same SSID but different parameters, this transition must be flagged as highly suspicious.
+
+Enhanced scoring system
+Extend the existing scoring mechanism to incorporate fingerprint mismatches and anomaly severity.
+
+Each anomaly type must contribute a weighted score. For example, unknown BSSID should contribute a high score, security mismatch should contribute a critical score, signal anomalies should contribute moderate scores, and temporal anomalies should contribute context-based scores.
+
+The system must aggregate these scores to produce a final risk score for each network instance.
+
+Define thresholds for classification such as trusted, suspicious, and high risk. The classification must be dynamic and update as new observations are processed.
+
+Single network validation mode
+Implement logic for scenarios where only one network with a given SSID is visible.
+
+In such cases, the system must rely entirely on fingerprint comparison rather than duplicate detection. If the observed network significantly deviates from its stored fingerprint, it must be flagged as a potential impersonation even without a visible duplicate.
+
+Output and explainability requirements
+The system must provide clear explanations for each detection decision.
+
+For every network flagged as suspicious or high risk, the output must include specific reasons such as unknown BSSID, signal outside expected range, unexpected channel, or security mismatch.
+
+The system must display both the observed parameters and the expected fingerprint values for comparison.
+
+Logging and traceability
+All anomalies, comparisons, and scoring decisions must be logged with timestamps.
+
+Logs must include the SSID, observed parameters, fingerprint reference values, detected mismatches, and resulting score adjustments.
+
+This ensures that detection decisions can be audited and analyzed later.
+
+Expected outputs
+
+An upgraded detection engine capable of identifying rogue networks even when only one instance of an SSID is visible
+A persistent fingerprint database for known networks that evolves over time
+A comparison engine that evaluates real-time data against historical profiles
+A refined scoring system incorporating multiple anomaly types
+Clear and explainable detection outputs with detailed reasoning
+Comprehensive logs capturing all detection decisions and anomalies
+
+Success criteria
+
+The system should detect when a known network is being impersonated even if no duplicate SSID is visible
+It should correctly identify unknown BSSIDs associated with known SSIDs as suspicious
+It should detect deviations in signal behavior, channel usage, and security configuration
+It should produce meaningful risk scores that reflect the severity of anomalies
+The output should clearly justify why a network is considered suspicious or trusted
+
+Future readiness
+
+This upgrade prepares the system for real-world attack scenarios where attackers attempt to suppress legitimate networks and present only a single rogue instance. It also establishes a foundation for further enhancements such as behavioral modeling, multi-device correlation, and machine learning-based anomaly detection.

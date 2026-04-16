@@ -1,0 +1,5 @@
+wifi_monitor_events.log
+wifi_monitor_raw_scan.log
+wifi_monitor.log
+__pycache__
+.venv

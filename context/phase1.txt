@@ -1,0 +1,96 @@
+Project brief
+This project is focused on building a rogue Wi-Fi detection system that can monitor nearby wireless networks, collect detailed parameters, and analyze them to identify suspicious or potentially malicious access points. At this stage, without a full attack setup, the focus is on building a strong monitoring and detection logic foundation that can later be tested against real rogue scenarios.
+
+Phase 1 prompt: Monitoring System and Detection Logic Design (Single Device Setup)
+
+Objective
+Design and implement a Wi-Fi monitoring and preliminary detection logic system using a single laptop. The system should continuously scan nearby wireless networks, collect structured data, maintain a history of observations, and apply logical rules to identify anomalies or suspicious patterns even without a live attacker setup.
+
+Scope of work
+You are required to build a monitoring system that can observe all nearby Wi-Fi networks in real time and maintain a structured dataset of their characteristics. The system should not rely on external attack simulation but instead focus on detecting inconsistencies and patterns that would later indicate rogue behavior.
+
+System requirements
+
+Data collection layer
+The system must continuously scan available Wi-Fi networks at regular intervals. Each scan must collect and store the following parameters for every visible network:
+
+SSID (network name)
+BSSID (MAC address of access point)
+Signal strength (RSSI values)
+Channel or frequency
+Security type (open, WPA2, WPA3, etc.)
+Timestamp of observation
+
+The system should handle repeated scans and ensure that data is updated rather than duplicated unnecessarily.
+
+Data structuring and storage
+You must design a structured way to store network data over time. Each network should be uniquely tracked using identifiers such as BSSID. The system must maintain a history of observations for each network, including:
+
+First seen timestamp
+Last seen timestamp
+Signal strength over time
+Number of times observed
+Changes in parameters (if any)
+
+The storage system can be in-memory or file-based but must support efficient updates and retrieval.
+
+Network profiling logic
+The system should build a profile for each detected network over time. This includes identifying stable characteristics such as consistent BSSID, typical signal strength range, and security configuration.
+
+The system should differentiate between:
+
+Known networks (observed repeatedly with consistent parameters)
+New networks (recently appeared)
+Unstable networks (frequent changes in parameters)
+
+Detection logic requirements
+
+Duplicate SSID detection
+The system must identify cases where multiple networks share the same SSID but have different BSSIDs. These should be flagged as potentially suspicious and tracked.
+
+Parameter inconsistency detection
+The system must detect if a network with the same SSID appears with different security types, channels, or other parameters. These inconsistencies should increase suspicion.
+
+Signal anomaly detection
+The system should track signal strength trends over time and identify unusual patterns such as sudden spikes or drops that deviate from the normal range for a network.
+
+Temporal behavior analysis
+The system must analyze when networks appear and disappear. Networks that appear suddenly and disappear quickly should be marked as potentially suspicious.
+
+Scoring mechanism
+Design a basic scoring system where each suspicious condition contributes to a network’s risk score. The score should be cumulative and adjustable. The system must classify networks into categories such as low risk, moderate risk, and high risk based on this score.
+
+Output and monitoring interface
+
+The system should provide a clear output that includes:
+
+List of all currently visible networks
+Detailed profile for each network
+Risk score and classification
+Flags for detected anomalies
+
+The output can be console-based but must be structured and readable. It should update continuously as new scans are performed.
+
+Logging and traceability
+The system must maintain logs of observations and detection events. Each log entry should include timestamp, network identifier, and reason for any anomaly or score change.
+
+Expected outputs
+
+A working Wi-Fi monitoring system that continuously scans and collects network data
+A structured dataset that maintains historical information for each network
+A detection logic module that identifies duplicate SSIDs, inconsistencies, and anomalies
+A scoring system that evaluates the risk level of each network
+A real-time output showing network status and suspicion levels
+A log of detection events and observed behaviors
+
+Success criteria
+
+The system should consistently detect and display multiple networks in the environment
+It should correctly identify duplicate SSIDs if present in the environment
+It should track changes in signal strength and other parameters over time
+It should assign meaningful risk scores based on observed anomalies
+The output should clearly show how and why a network is considered suspicious
+
+Future readiness
+
+The system should be designed in a modular way so that when a second device is introduced later, it can easily incorporate real rogue access point testing without major redesign.

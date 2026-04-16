@@ -1,0 +1,1 @@
+Reminder: Use the project prompt and phase context when working on the Wi-Fi monitoring system. The user may ask the assistant to refer back to the phase requirements or to keep track of changes.
