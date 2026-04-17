@@ -68,10 +68,10 @@ if __name__ == "__main__":
         print(f"\nBroadcasting Rogue AP!")
         print(f"SSID: {target_ssid} (Invisible char appended)")
         print(f"BSSID (MAC): {bssid}")
-        print("Running for 60 seconds... (Press Ctrl+C to stop early)")
+        print("Running for 180 seconds... (Press Ctrl+C to stop early)")
         
         # Countdown timer that can be interrupted
-        for i in range(60, 0, -1):
+        for i in range(300, 0, -1):
             print(f"Time remaining: {i}s ", end="\r")
             time.sleep(1)
 
